@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>비디오 추가</title>
+<style>
+body {
+  font-family: sans-serif;
+  background-color: #eeeeee;
+}
+
+.file-upload {
+  background-color: #ffffff;
+  width: 1024px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.file-upload-btn {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  background: #1FB264;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #15824B;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.file-upload-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-save-btn {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  background: #6099f4;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #5d79a6;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.file-upload-save-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+/*   position: absolute; */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+/*   height: 100%; */
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed #1FB264;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+
+</style>
+</head>
+<body>
+
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<div class="file-upload">
+  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">동영상 추가</button>
+
+  <div id="dropbox" class="image-upload-wrap">
+    <input id="file-upload-input" class="file-upload-input" type='file' onchange="readURL(this,null);" accept=".mp4" />
+    <div class="drag-text">
+      <h3>동영상 파일을 이 영역으로 드래그 혹은 선택 해주세요.</h3>
+    </div>
+  </div>
+  <div class="file-upload-content">
+    <video class="file-upload-video" src="#" autoplay="autoplay" loop="loop">
+    </video>
+    <span id="videoInfo"></span>
+    <div class="image-title-wrap">
+      <button type="button" onclick="removeUpload()" class="remove-image">삭제 <span class="image-title">Uploaded Image</span></button>
+    </div>
+  </div>
+  <button class="file-upload-save-btn" type="button" onclick="Upload()">동영상 저장</button>
+</div>
+
+<script>
+function readURL(input,_type) {
+	var reader = new FileReader();
+	  if (input.files && input.files[0] && _type == null) {
+
+	    reader.onload = function(e) {
+	      $('.image-upload-wrap').hide();
+	      $('.file-upload-video').attr('src', e.target.result);
+	      var videoTagRef = $('.file-upload-video')[0];
+	      	  videoTagRef.addEventListener('loadedmetadata', function(){
+	        $("#videoInfo").append(`동영상 원본 해상도 높이 :${videoTagRef.videoHeight} 너비 : ${videoTagRef.videoWidth}`);
+	      }, {once: true});
+	      
+	      $('.file-upload-content').show();
+
+	      $('.image-title').html(input.files[0].name);
+	    };
+
+	    reader.readAsDataURL(input.files[0]);
+
+	  } else if(input.length != null && _type == "drag"){
+		  console.log(input);
+		  
+ 	     reader.onload = function(e) {
+		      $('.image-upload-wrap').hide();
+		      document.getElementById("file-upload-input").value = input[0].name;
+		      $('.file-upload-video').attr('src', e.target.result);
+		      var videoTagRef = $('.file-upload-video')[0];
+		      	  videoTagRef.addEventListener('loadedmetadata', function(){
+		        $("#videoInfo").append(`동영상 원본 해상도 높이 :${videoTagRef.videoHeight} 너비 : ${videoTagRef.videoWidth}`);
+		      }, {once: true});
+		      
+		      $('.file-upload-content').show();
+
+		      $('.image-title').html(input[0].name);
+		    };
+		    
+		    reader.readAsDataURL(input[0]);
+			    
+	  }else {
+	    removeUpload();
+	  }
+}
+	
+function removeUpload() {
+  $("#videoInfo").empty();
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
+}
+var dropbox;
+dropbox = document.getElementById("dropbox");
+dropbox.addEventListener("dragenter", dragenter, false);
+dropbox.addEventListener("dragover", dragover, false);
+dropbox.addEventListener("drop", drop, false);
+
+function dragenter(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  $('.image-upload-wrap').removeClass('image-dropping');
+}
+
+function dragover(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  $('.image-upload-wrap').addClass('image-dropping');
+}
+
+function drop(e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  var dt = e.dataTransfer;
+  var files = dt.files;
+  $('.image-upload-wrap').removeClass('image-dropping');
+  readURL(files,"drag");
+}
+  
+function Upload(){
+	
+   var fileCheck = document.getElementById("file-upload-input").value;
+	    if(!fileCheck){
+	        alert("동영상 파일을 확인해주세요.");
+	        return false;
+    }
+	    
+    var checkSize = "N";
+    
+	if(document.getElementById("file-upload-input").files[0].size > 300000){
+		if (confirm("용량이 너무 큽니다. 파일 크기를 최적화 하시겠습니까?")) {
+			checkSize = "Y";
+		}	
+	}
+	    
+    var formData = new FormData();
+    	formData.append('video', document.getElementById("file-upload-input").files[0]);
+    	formData.append('checkSize', checkSize);
+    		
+	$.ajax({
+	    type : 'post',          
+	    url : '/api/v1/stream/upload',
+	    async : false,
+	    enctype:'multipart/form-data',
+	    contentType : false,
+	    processData : false,
+	    dataType:'json',
+	    data : formData,
+	    success : function(result) { // 결과 성공 콜백함수
+	        console.log(result);
+	    },
+	    error : function(request, status, error) { // 결과 에러 콜백함수
+	        console.log(error);
+	    }
+	})
+}
+</script>
+
+</body>
+</html>

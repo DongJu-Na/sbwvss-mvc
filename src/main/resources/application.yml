@@ -1,14 +1,13 @@
 spring:
   profiles:
     active: local
-
-springdoc:
-  version: '0.1'
-  swagger-ui:
-    use-root-path: true
-
-
-    
+  thymeleaf:
+    prefix : classpath:templates/
+    suffix : .html
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 ---
 spring:
   config:
