@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,10 +20,19 @@ import net.bramp.ffmpeg.progress.ProgressListener;
 @Service
 public class ApiService {
 	
+	@Value("${video.uploadPath}")
+	private String uploadPath;
+	
+	@Value("${video.ffmpegPath}")
+	private String ffmpegPath;
+	
+	@Value("${video.ffprobePath}")
+	private String ffprobePath;
+	
 public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 		MultipartFile mFile = vd;
 		
-		String filePath = System.getProperty("user.dir") + "\\uploads\\";
+		String filePath = uploadPath;
 		String saveFileName = "", savaFilePath = "";
 		
 			
@@ -72,8 +82,8 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
     }
 
 	 public void videoMinify(String fileName) throws IOException {
-		 FFmpeg ffmpeg = new FFmpeg(System.getProperty("user.dir") + "\\ffmpeg\\ffmpeg");
-		 FFprobe ffprobe = new FFprobe(System.getProperty("user.dir") + "\\ffmpeg\\ffprobe");
+		 FFmpeg ffmpeg = new FFmpeg(ffmpegPath);
+		 FFprobe ffprobe = new FFprobe(ffprobePath);
 
 		 FFmpegBuilder builder = new FFmpegBuilder()
 
