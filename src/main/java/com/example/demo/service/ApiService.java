@@ -14,6 +14,9 @@ import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFmpegUtils;
 import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
+import net.bramp.ffmpeg.probe.FFmpegFormat;
+import net.bramp.ffmpeg.probe.FFmpegProbeResult;
+import net.bramp.ffmpeg.probe.FFmpegStream;
 import net.bramp.ffmpeg.progress.Progress;
 import net.bramp.ffmpeg.progress.ProgressListener;
 
@@ -76,6 +79,7 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 			}
 			
 			if(checkSize.equals("Y")) {
+				getVideoInfo(fileName);
 				videoMinify(fileName);
 			}
 		
@@ -87,12 +91,12 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 
 		 FFmpegBuilder builder = new FFmpegBuilder()
 
-		   .setInput( System.getProperty("user.dir") + "\\uploads\\" + fileName)     // Filename, or an FFMPEGProbeResult
+		   .setInput( uploadPath + fileName)     // Filename, or an FFMPEGProbeResult
 		   .overrideOutputFiles(true) // Override the output if it exists
 
-		   .addOutput( System.getProperty("user.dir") + "\\uploads\\" + "output.mp4")   // Filename for the destination
+		   .addOutput( uploadPath + fileName + "(format).mp4")   // Filename for the destination
 		     .setFormat("mp4")        // Format is inferred from filename, or can be set
-		     .setTargetSize(1000_000)  // Aim for a 250KB file
+		     //.setTargetSize(1000_000)  // Aim for a 250KB file
 
 		     .disableSubtitle()       // No subtiles
 
@@ -103,7 +107,7 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 
 		     .setVideoCodec("libx264")     // Video using x264
 		     .setVideoFrameRate(24, 1)     // at 24 frames per second
-		     .setVideoResolution(100, 100) // at 100x100 resolution
+		     .setVideoResolution(250, 250) // at 100x100 resolution
 
 		     .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL) // Allow FFmpeg to use experimental specs
 		     .done();
@@ -133,6 +137,25 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 		 // Or run a two-pass encode (which is better quality at the cost of being slower)
 		 executor.createTwoPassJob(builder).run();
 			
+	 }
+	 
+	 public void getVideoInfo(String fileName) throws IOException {
+		 FFprobe ffprobe = new FFprobe(ffprobePath);
+		 FFmpegProbeResult probeResult = ffprobe.probe(uploadPath + fileName);
+
+		 FFmpegFormat format = probeResult.getFormat();
+		 System.out.format("%nFile: '%s' ; Format: '%s' ; Duration: %.3fs", 
+		 	format.filename, 
+		 	format.format_long_name,
+		 	format.duration
+		 );
+
+		 FFmpegStream stream = probeResult.getStreams().get(0);
+		 System.out.format("%nCodec: '%s' ; Width: %dpx ; Height: %dpx",
+		 	stream.codec_long_name,
+		 	stream.width,
+		 	stream.height
+		 );
 	 }
 
 }

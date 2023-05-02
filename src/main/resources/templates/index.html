@@ -193,8 +193,9 @@ function readURL(input,_type) {
 		  console.log(input);
 		  
  	     reader.onload = function(e) {
+ 	    	  console.log(input[0]);
+ 	    	  console.log(input[0].name);
 		      $('.image-upload-wrap').hide();
-		      document.getElementById("file-upload-input").value = input[0].name;
 		      $('.file-upload-video').attr('src', e.target.result);
 		      var videoTagRef = $('.file-upload-video')[0];
 		      	  videoTagRef.addEventListener('loadedmetadata', function(){
@@ -202,7 +203,8 @@ function readURL(input,_type) {
 		      }, {once: true});
 		      
 		      $('.file-upload-content').show();
-
+		      $("#file-upload-input")[0].files = input;
+		      console.log(" tt aaa bb > >  > " + $("#file-upload-input")[0].files);
 		      $('.image-title').html(input[0].name);
 		    };
 		    

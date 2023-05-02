@@ -6,14 +6,16 @@ spring:
     suffix : .html
   servlet:
     multipart:
-      location: /videoServer/upload/
+      enabled: true
+      file-size-threshold: 0
+      location: c:\\videoServer\\upload\\
       max-file-size: 100MB
       max-request-size: 100MB
       
 video:
-  uploadPath: /videoServer/upload/
-  ffmpegPath:  ffmpeg/ffmpeg
-  ffprobePath: ffmpeg/ffprobe  
+  uploadPath: c:\\videoServer\\upload\\
+  ffmpegPath:  c:\\ffmpeg\\ffmpeg
+  ffprobePath: c:\\ffmpeg\\ffprobe  
   
 ---
 spring:
