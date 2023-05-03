@@ -3,11 +3,18 @@ package com.example.demo.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.demo.util.JsonUtils;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
@@ -34,6 +41,7 @@ public class ApiService {
 	
 public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 		MultipartFile mFile = vd;
+		Map<String, Object> videoInfo = new HashMap<>();
 		
 		String filePath = uploadPath;
 		String saveFileName = "", savaFilePath = "";
@@ -79,7 +87,11 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 			}
 			
 			if(checkSize.equals("Y")) {
-				getVideoInfo(fileName);
+				videoInfo = getVideoInfo(fileName);
+				System.out.println("============================");
+				System.out.println(videoInfo);
+				System.out.println("============================");
+				
 				videoMinify(fileName);
 			}
 		
@@ -106,8 +118,8 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 		     .setAudioBitRate(32768)      // at 32 kbit/s
 
 		     .setVideoCodec("libx264")     // Video using x264
-		     .setVideoFrameRate(24, 1)     // at 24 frames per second
-		     .setVideoResolution(250, 250) // at 100x100 resolution
+		     .setVideoFrameRate(29, 1)     // at 24 frames per second
+		     .setVideoResolution(1280, 720) // at 100x100 resolution
 
 		     .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL) // Allow FFmpeg to use experimental specs
 		     .done();
@@ -139,23 +151,40 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 			
 	 }
 	 
-	 public void getVideoInfo(String fileName) throws IOException {
+	 public Map<String,Object> getVideoInfo(String fileName) throws IOException {
+		 Map<String,Object> result = new HashMap<String, Object>();
+		 ObjectMapper objectMapper = new ObjectMapper();
+		 
 		 FFprobe ffprobe = new FFprobe(ffprobePath);
 		 FFmpegProbeResult probeResult = ffprobe.probe(uploadPath + fileName);
-
+		 
 		 FFmpegFormat format = probeResult.getFormat();
-		 System.out.format("%nFile: '%s' ; Format: '%s' ; Duration: %.3fs", 
-		 	format.filename, 
-		 	format.format_long_name,
-		 	format.duration
-		 );
-
+		 String formatString = objectMapper.writeValueAsString(format);
+		 Map<String,Object> fResult = JsonUtils.jsonToMap(formatString);
+		 
+		 //System.out.format("%nFile: '%s' ; Format: '%s' ; Duration: %.3fs", format.filename, format.format_long_name,format.duration);
+		 if(fResult != null) {
+			 result.putAll(fResult);
+		 }
+			
 		 FFmpegStream stream = probeResult.getStreams().get(0);
-		 System.out.format("%nCodec: '%s' ; Width: %dpx ; Height: %dpx",
-		 	stream.codec_long_name,
-		 	stream.width,
-		 	stream.height
-		 );
+		 String streamString = objectMapper.writeValueAsString(stream);
+		 streamString = streamString.replace("\"r_frame_rate\":"+stream.r_frame_rate, "\"r_frame_rate\":\"" + stream.r_frame_rate + '"');
+		 streamString = streamString.replace("\"avg_frame_rate\":"+stream.avg_frame_rate, "\"avg_frame_rate\":\"" + stream.avg_frame_rate + '"');
+		 streamString = streamString.replace("\"time_base\":"+stream.time_base, "\"time_base\":\"" + stream.time_base + '"');
+		 
+		 
+		 Map<String,Object> sResult = JsonUtils.jsonToMap(streamString);
+		 //System.out.format("%nCodec: '%s' ; Width: %dpx ; Height: %dpx",stream.codec_long_name,stream.width,stream.height);
+		 
+		 if(sResult != null) {
+			 result.putAll(sResult);
+		 }
+		 
+		 return result;
+			 
 	 }
+	 
+	 
 
 }

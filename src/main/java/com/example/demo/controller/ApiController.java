@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,10 +29,13 @@ public class ApiController {
 	@Autowired
 	private ApiService service;
 	
+	@Value("${video.uploadPath}")
+	private String uploadPath;
+	
   @GetMapping("/{fileName}")
   public ResponseEntity<InputStreamResource> streamResourceFromDisk(@PathVariable String fileName) throws Exception {
   	HttpHeaders headers = new HttpHeaders();
-    	String FILE_DIRECTORY = "uploads/" + fileName;
+    	String FILE_DIRECTORY = uploadPath + fileName;
     	headers.set("Accept-Ranges", "bytes");
       headers.set("Content-Type", "video/mp4");
       
