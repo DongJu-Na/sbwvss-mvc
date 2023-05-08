@@ -118,8 +118,8 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 		     .setAudioBitRate(32768)      // at 32 kbit/s
 
 		     .setVideoCodec("libx264")     // Video using x264
-		     .setVideoFrameRate(29, 1)     // at 24 frames per second
-		     .setVideoResolution(1280, 720) // at 100x100 resolution
+		     .setVideoFrameRate(24, 1)     // at 24 frames per second
+		     .setVideoResolution(1920, 1080) // at 100x100 resolution
 
 		     .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL) // Allow FFmpeg to use experimental specs
 		     .done();
@@ -184,6 +184,80 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 		 return result;
 			 
 	 }
+	 
+	 /*
+	 @GetMapping(value = "/{fileName}", produces = "application/octet-stream")
+	public ResponseEntity<ResourceRegion> streamVideo(@PathVariable String fileName,
+	                                                  @RequestHeader(value = "Range", required = false) String rangeHeader) throws IOException {
+	    String FILE_DIRECTORY = uploadPath + fileName;
+	    File videoFile = new File(FILE_DIRECTORY);
+	    if (!videoFile.exists()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	    }
+
+	    // 비디오 파일을 읽어들입니다.
+	    RandomAccessFile randomAccessFile = new RandomAccessFile(videoFile, "r");
+	    long videoLength = randomAccessFile.length();
+
+	    // 비디오 청크의 시작 위치와 크기를 계산합니다.
+	    long start = 0, end = videoLength - 1;
+	    if (rangeHeader != null && !rangeHeader.isEmpty()) {
+	        String[] ranges = rangeHeader.split("=");
+	        if (ranges.length > 1) {
+	            String[] parts = ranges[1].split("-");
+	            try {
+	                if (parts.length > 1) {
+	                    start = Long.parseLong(parts[0]);
+	                    end = Long.parseLong(parts[1]);
+	                } else {
+	                    start = Long.parseLong(parts[0]);
+	                    end = videoLength - 1;
+	                }
+	            } catch (NumberFormatException e) {
+	                start = 0;
+	                end = videoLength - 1;
+	            }
+	        }
+	    }
+
+	    // 비디오 청크를 생성합니다.
+	    long contentLength = end - start + 1;
+	    InputStream inputStream = new BufferedInputStream(new FileInputStream(videoFile));
+	    inputStream.skip(start);
+	    inputStream.mark(Integer.MAX_VALUE);
+	    ResourceRegion region = new ResourceRegion(new InputStreamResource(inputStream), 0, contentLength) {
+	        @Override
+	        public InputStream getInputStream() throws IOException {
+	            InputStream inputStream = new BufferedInputStream(new FileInputStream(videoFile));
+	            inputStream.skip(start);
+	            inputStream.mark(Integer.MAX_VALUE);
+	            return inputStream;
+	        }
+	    };
+
+	    // HTTP 응답 헤더를 설정합니다.
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.set("Content-Type", "video/mp4");
+	    headers.set("Accept-Ranges", "bytes");
+	    headers.set("Content-Length", String.valueOf(contentLength));
+	    if (rangeHeader != null && !rangeHeader.isEmpty()) {
+	        headers.set("Content-Range", "bytes " + start + "-" + end + "/" + videoLength);
+	        return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
+	                             .headers(headers)
+	                             .contentType(MediaType.APPLICATION_OCTET_STREAM)
+	                             .body(region);
+	    } else {
+	        headers.set("Content-Range", "bytes 0-" + (videoLength - 1) + "/" + videoLength);
+	        return ResponseEntity.status(HttpStatus.OK)
+	                             .headers(headers)
+	                             .contentType(MediaType.APPLICATION_OCTET_STREAM)
+	                             .body(region);
+	    }
+	}
+	
+	  */
+	 
+	 
 	 
 	 
 
