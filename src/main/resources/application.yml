@@ -1,21 +1,12 @@
 spring:
   profiles:
-    active: local
+    active: prod
   thymeleaf:
     prefix : classpath:templates/
     suffix : .html
-  servlet:
-    multipart:
-      enabled: true
-      file-size-threshold: 0
-      location: c:\\videoServer\\upload\\
-      max-file-size: 100MB
-      max-request-size: 100MB
+
       
-video:
-  uploadPath: c:\\videoServer\\upload\\
-  ffmpegPath:  c:\\ffmpeg\\ffmpeg
-  ffprobePath: c:\\ffmpeg\\ffprobe  
+  
   
 ---
 spring:
@@ -25,9 +16,22 @@ spring:
   devtools:
     restart:
       enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      location: c:\\videoServer\\upload\\
+      max-file-size: 100MB
+      max-request-size: 100MB
+      
 server:
   title: sbwbss-mvc-local
   port : 8080
+  
+video:
+  uploadPath: c:\\videoServer\\upload\\
+  ffmpegPath:  c:\\ffmpeg\\ffmpeg
+  ffprobePath: c:\\ffmpeg\\ffprobe
   
 ---
 spring:
@@ -37,9 +41,22 @@ spring:
   devtools:
     restart:
       enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      location: /home/users/djna/jar/videoServer/upload/
+      max-file-size: 100MB
+      max-request-size: 100MB
          
 server:
   title: sbwbss-mvc-prod
-  port : 8081
+  port : 8080
+  
+video:
+  uploadPath: /home/users/djna/jar/videoServer/upload/
+  ffmpegPath:  /home/users/djna/jar/videoServer/ffmpeg/ffmpeg
+  ffprobePath: /home/users/djna/jar/videoServer/ffmpeg/ffprobe
+  
 
  

@@ -76,6 +76,10 @@
       .bd-mode-toggle {
         z-index: 1500;
       }
+      
+      .orgDiv{
+      	border: var(--bs-card-border-width) solid rgb(73 101 255);
+      }
     </style>
     
 </head>
@@ -169,11 +173,11 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Album example</h1>
-        <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <h1 class="fw-light">동영상 압축 테스트</h1>
+        <p class="lead text-body-secondary">해상도와프레임에따른용량차이영상샘플</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          <a href="https://docs.google.com/spreadsheets/d/1rxsNSbc-IwXjxAsx7UKSmz2d5phVCXJ7sJ0agUdCTVE/" class="btn btn-primary my-2" target="_blank">엑셀 참고 자료</a>
+          <a href="#" onclick="_msg('준비중입니다.')" class="btn btn-secondary my-2">준비중2</a>
         </p>
       </div>
     </div>
@@ -209,204 +213,284 @@
 <script>
 var dummyData = [
 	{
+		"fileName" : "250_250.mp4",
+		"content" : "압축 전 원본 동영상",
+		"fileSize" : "1142251",
+		"type" : "org"
+	},
+	{
 		"fileName" : "250_250.mp4(format)_v1_30.mp4",
-		"content" : "SD(320*240) 30fps"
+		"content" : "SD(320*240) 30fps",
+		"fileSize" : "79262"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v2_30.mp4",
-		"content" : "VGA(640*480) 30fps"
+		"content" : "VGA(640*480) 30fps",
+		"fileSize" : "224074"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v3_30.mp4",
-		"content" : "DVD(720*480) 30fps"
+		"content" : "DVD(720*480) 30fps",
+		"fileSize" : "244836"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v4_30.mp4",
-		"content" : "HD(1280*720) 30fps"
+		"content" : "HD(1280*720) 30fps",
+		"fileSize" : "509284"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v5_30.mp4",
-		"content" : "FULL HD(1920*1080) 30fps"
+		"content" : "FULL HD(1920*1080) 30fps",
+		"fileSize" : "964731"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v1_24.mp4",
-		"content" : "SD(320*240) 24fps"
+		"content" : "SD(320*240) 24fps",
+		"fileSize" : "78001"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v2_24.mp4",
-		"content" : "VGA(640*480) 24fps"
+		"content" : "VGA(640*480) 24fps",
+		"fileSize" : "216387"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v3_24.mp4",
-		"content" : "DVD(720*480) 24fps"
+		"content" : "DVD(720*480) 24fps",
+		"fileSize" : "235959"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v4_24.mp4",
-		"content" : "HD(1280*720) 24fps"
+		"content" : "HD(1280*720) 24fps",
+		"fileSize" : "489846"
 	},
 	{
 		"fileName" : "250_250.mp4(format)_v5_24.mp4",
-		"content" : "FULL HD(1920*1080) 24fps"
+		"content" : "FULL HD(1920*1080) 24fps",
+		"fileSize" : "920298"
+	},
+	{
+		"fileName" : "300_250.mp4",
+		"content" : "압축 전 원본 동영상",
+		"fileSize" : "1711666",
+		"type" : "org"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v1_30.mp4",
-		"content" : "SD(320*240) 30fps"
+		"content" : "SD(320*240) 30fps",
+		"fileSize" : "247454"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v2_30.mp4",
-		"content" : "VGA(640*480) 30fps"
+		"content" : "VGA(640*480) 30fps",
+		"fileSize" : "760998"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v3_30.mp4",
-		"content" : "DVD(720*480) 30fps"
+		"content" : "DVD(720*480) 30fps",
+		"fileSize" : "841210"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v4_30.mp4",
-		"content" : "HD(1280*720) 30fps"
+		"content" : "HD(1280*720) 30fps",
+		"fileSize" : "1880883"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v5_30.mp4",
-		"content" : "FULL HD(1920*1080) 30fps"
+		"content" : "FULL HD(1920*1080) 30fps",
+		"fileSize" : "3421773"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v1_24.mp4",
-		"content" : "SD(320*240) 24fps"
+		"content" : "SD(320*240) 24fps",
+		"fileSize" : "302881"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v2_24.mp4",
-		"content" : "VGA(640*480) 24fps"
+		"content" : "VGA(640*480) 24fps",
+		"fileSize" : "766981"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v3_24.mp4",
-		"content" : "DVD(720*480) 24fps"
+		"content" : "DVD(720*480) 24fps",
+		"fileSize" : "847827"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v4_24.mp4",
-		"content" : "HD(1280*720) 24fps"
+		"content" : "HD(1280*720) 24fps",
+		"fileSize" : "1881674"
 	},
 	{
 		"fileName" : "300_250.mp4(format)_v5_24.mp4",
-		"content" : "FULL HD(1920*1080) 24fps"
+		"content" : "FULL HD(1920*1080) 24fps",
+		"fileSize" : "2998183"
+	},
+	{
+		"fileName" : "square2.mp4",
+		"content" : "압축 전 원본 동영상",
+		"fileSize" : "2999254",
+		"type" : "org"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v1_30.mp4",
-		"content" : "SD(320*240) 30fps"
+		"content" : "SD(320*240) 30fps",
+		"fileSize" : "528684"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v2_30.mp4",
-		"content" : "VGA(640*480) 30fps"
+		"content" : "VGA(640*480) 30fps",
+		"fileSize" : "1305913"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v3_30.mp4",
-		"content" : "DVD(720*480) 30fps"
+		"content" : "DVD(720*480) 30fps",
+		"fileSize" : "1416280"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v4_30.mp4",
-		"content" : "HD(1280*720) 30fps"
+		"content" : "HD(1280*720) 30fps",
+		"fileSize" : "2661909"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v5_30.mp4",
-		"content" : "FULL HD(1920*1080) 30fps"
+		"content" : "FULL HD(1920*1080) 30fps",
+		"fileSize" : "5204894"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v1_24.mp4",
-		"content" : "SD(320*240) 24fps"
+		"content" : "SD(320*240) 24fps",
+		"fileSize" : "564286"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v2_24.mp4",
-		"content" : "VGA(640*480) 24fps"
+		"content" : "VGA(640*480) 24fps",
+		"fileSize" : "1392719"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v3_24.mp4",
-		"content" : "DVD(720*480) 24fps"
+		"content" : "DVD(720*480) 24fps",
+		"fileSize" : "1504893"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v4_24.mp4",
-		"content" : "HD(1280*720) 24fps"
+		"content" : "HD(1280*720) 24fps",
+		"fileSize" : "2814716"
 	},
 	{
 		"fileName" : "square2.mp4(format)_v5_24.mp4",
-		"content" : "FULL HD(1920*1080) 24fps"
+		"content" : "FULL HD(1920*1080) 24fps",
+		"fileSize" : "5513592"
+	},
+	{
+		"fileName" : "공공기관_창원시청.ts",
+		"content" : "압축 전 원본 동영상 ts 확장자는 ",
+		"fileSize" : "15924689",
+		"type" : "org"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v1_30.mp4",
-		"content" : "SD(320*240) 30fps"
+		"content" : "SD(320*240) 30fps",
+		"fileSize" : "2865789"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v2_30.mp4",
-		"content" : "VGA(640*480) 30fps"
+		"content" : "VGA(640*480) 30fps",
+		"fileSize" : "9411050"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v3_30.mp4",
-		"content" : "DVD(720*480) 30fps"
+		"content" : "DVD(720*480) 30fps",
+		"fileSize" : "10415469"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v4_30.mp4",
-		"content" : "HD(1280*720) 30fps"
+		"content" : "HD(1280*720) 30fps",
+		"fileSize" : "21902727"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v5_30.mp4",
-		"content" : "FULL HD(1920*1080) 30fps"
+		"content" : "FULL HD(1920*1080) 30fps",
+		"fileSize" : "38409504"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v1_24.mp4",
-		"content" : "SD(320*240) 24fps"
+		"content" : "SD(320*240) 24fps",
+		"fileSize" : "3007560"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v2_24.mp4",
-		"content" : "VGA(640*480) 24fps"
+		"content" : "VGA(640*480) 24fps",
+		"fileSize" : "9880820"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v3_24.mp4",
-		"content" : "DVD(720*480) 24fps"
+		"content" : "DVD(720*480) 24fps",
+		"fileSize" : "10931220"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v4_24.mp4",
-		"content" : "HD(1280*720) 24fps"
+		"content" : "HD(1280*720) 24fps",
+		"fileSize" : "23150853"
 	},
 	{
 		"fileName" : "공공기관_창원시청.ts(format)_v5_24.mp4",
-		"content" : "FULL HD(1920*1080) 24fps"
+		"content" : "FULL HD(1920*1080) 24fps",
+		"fileSize" : "40939091"
+	},
+	{
+		"fileName" : "J서비스_W스튜디오.ts",
+		"content" : "압축 전 원본 동영상 ts 확장자는 브라우저에서 지원하지 않습니다.",
+		"fileSize" : "2174992",
+		"type" : "org"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v1_30.mp4",
-		"content" : "SD(320*240) 30fps"
+		"content" : "SD(320*240) 30fps",
+		"fileSize" : "528684"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v2_30.mp4",
-		"content" : "VGA(640*480) 30fps"
+		"content" : "VGA(640*480) 30fps",
+		"fileSize" : "1305913"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v3_30.mp4",
-		"content" : "DVD(720*480) 30fps"
+		"content" : "DVD(720*480) 30fps",
+		"fileSize" : "1416280"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v4_30.mp4",
-		"content" : "HD(1280*720) 30fps"
+		"content" : "HD(1280*720) 30fps",
+		"fileSize" : "2661909"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v5_30.mp4",
-		"content" : "FULL HD(1920*1080) 30fps"
+		"content" : "FULL HD(1920*1080) 30fps",
+		"fileSize" : "5204894"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v1_24.mp4",
-		"content" : "SD(320*240) 24fps"
+		"content" : "SD(320*240) 24fps",
+		"fileSize" : "564286"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v2_24.mp4",
-		"content" : "VGA(640*480) 24fps"
+		"content" : "VGA(640*480) 24fps",
+		"fileSize" : "1392719"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v3_24.mp4",
-		"content" : "DVD(720*480) 24fps"
+		"content" : "DVD(720*480) 24fps",
+		"fileSize" : "1504893"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v4_24.mp4",
-		"content" : "HD(1280*720) 24fps"
+		"content" : "HD(1280*720) 24fps",
+		"fileSize" : "2814716"
 	},
 	{
 		"fileName" : "J서비스_W스튜디오.ts(format)_v5_24.mp4",
-		"content" : "FULL HD(1920*1080) 24fps"
+		"content" : "FULL HD(1920*1080) 24fps",
+		"fileSize" : "5513592"
 	}
 	
 ]
@@ -415,14 +499,15 @@ $(function() {
 	 for(var i=0; i < dummyData.length; i++){
 		 _html += `
 				<div class="col">
-			          <div class="card shadow-sm">
+			          <div class="card shadow-sm ${dummyData[i]["type"] === "org" ? "orgDiv" : "" }">
 						<video src="/api/v1/stream/${dummyData[i]["fileName"]}" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="420" height="225"></video>
 			            <div class="card-body">
-			              <p class="card-text">${dummyData[i]["content"]}</p>
+			              <p class="card-text">${dummyData[i]["content"]}<br/><b>${bytesToSize(dummyData[i]["fileSize"])} </b></p>
+			              <p class="card-text"></p>
 			              <div class="d-flex justify-content-between align-items-center">
 			                <div class="btn-group">
-			                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-			                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+			                  <button onclick="_msg('준비중입니다.')" type="button" class="btn btn-sm btn-outline-secondary">View</button>
+			                  <button onclick="_msg('준비중입니다.')" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
 			                </div>
 			                <small class="text-body-secondary">- mins</small>
 			              </div>
@@ -433,5 +518,20 @@ $(function() {
 	 }
 	 $("#contentDiv").append(_html);
 });
+
+function bytesToSize(bytes) {
+	  if(typeof bytes === "string"){
+		  bytes = Number(bytes);
+	  }
+	  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+	  if (bytes === 0) return 'n/a'
+	  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+	  if (i === 0) return `${bytes} ${sizes[i]})`
+	  return `${(bytes / (1024 ** i)).toFixed(2)} ${sizes[i]}`
+}
+
+function _msg(msg){
+	alert(msg);
+}
 </script>
 </html>

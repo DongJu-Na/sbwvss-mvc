@@ -106,20 +106,24 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 		   .setInput( uploadPath + fileName)     // Filename, or an FFMPEGProbeResult
 		   .overrideOutputFiles(true) // Override the output if it exists
 
-		   .addOutput( uploadPath + fileName + "(format).mp4")   // Filename for the destination
+		   .addOutput( uploadPath + fileName + "(AudioRemoveformat).mp4")   // Filename for the destination
 		     .setFormat("mp4")        // Format is inferred from filename, or can be set
 		     //.setTargetSize(1000_000)  // Aim for a 250KB file
 
 		     .disableSubtitle()       // No subtiles
 
-		     .setAudioChannels(1)         // Mono audio
+         .disableAudio()
+         .setVideoCodec("copy")
+         /*
+         .setAudioChannels(1)         // Mono audio
 		     .setAudioCodec("aac")        // using the aac codec
 		     .setAudioSampleRate(48_000)  // at 48KHz
 		     .setAudioBitRate(32768)      // at 32 kbit/s
 
 		     .setVideoCodec("libx264")     // Video using x264
-		     .setVideoFrameRate(24, 1)     // at 24 frames per second
-		     .setVideoResolution(1920, 1080) // at 100x100 resolution
+		     .setVideoFrameRate(30, 1)     // at 24 frames per second
+		     .setVideoResolution(600, 600) // at 100x100 resolution
+		     */
 
 		     .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL) // Allow FFmpeg to use experimental specs
 		     .done();
