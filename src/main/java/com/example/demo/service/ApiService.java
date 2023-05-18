@@ -87,79 +87,99 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 			}
 			
 			if(checkSize.equals("Y")) {
-				videoInfo = getVideoInfo(fileName);
-				System.out.println("============================");
-				System.out.println(videoInfo);
-				System.out.println("============================");
-				
-				videoMinify(fileName);
+//				videoInfo = getVideoInfo(fileName);
+//				System.out.println("============================");
+//				System.out.println(videoInfo);
+//				System.out.println("fileName > " + fileName);
+//				System.out.println("============================");
+				videoEffectAddon(fileName);
+				// videoMinify(fileName);
 			}
 		
     }
 
-	 public void videoMinify(String fileName) throws IOException {
-		 FFmpeg ffmpeg = new FFmpeg(ffmpegPath);
-		 FFprobe ffprobe = new FFprobe(ffprobePath);
+public void videoMinify(String fileName) throws IOException {
+	 FFmpeg ffmpeg = new FFmpeg(ffmpegPath);
+	 FFprobe ffprobe = new FFprobe(ffprobePath);
 
-		 FFmpegBuilder builder = new FFmpegBuilder()
+	 FFmpegBuilder builder = new FFmpegBuilder()
 
 		   .setInput( uploadPath + fileName)     // Filename, or an FFMPEGProbeResult
 		   .overrideOutputFiles(true) // Override the output if it exists
-
-		   .addOutput( uploadPath + fileName + "(AudioRemoveformat).mp4")   // Filename for the destination
+	
+		   .addOutput( uploadPath + fileName + "(format).mp4")   // Filename for the destination
 		     .setFormat("mp4")        // Format is inferred from filename, or can be set
 		     //.setTargetSize(1000_000)  // Aim for a 250KB file
-
+	
 		     .disableSubtitle()       // No subtiles
-
-         .disableAudio()
-         .setVideoCodec("copy")
-         /*
-         .setAudioChannels(1)         // Mono audio
+	
+		     .setAudioChannels(1)         // Mono audio
 		     .setAudioCodec("aac")        // using the aac codec
 		     .setAudioSampleRate(48_000)  // at 48KHz
 		     .setAudioBitRate(32768)      // at 32 kbit/s
-
+	
 		     .setVideoCodec("libx264")     // Video using x264
-		     .setVideoFrameRate(30, 1)     // at 24 frames per second
-		     .setVideoResolution(600, 600) // at 100x100 resolution
-		     */
-
+		     .setVideoFrameRate(24, 1)     // at 24 frames per second
+		     .setVideoResolution(1920, 1080) // at 100x100 resolution
+	
 		     .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL) // Allow FFmpeg to use experimental specs
 		     .done();
-
+	
 		 FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
-
+	
 		 // Run a one-pass encode
 		 executor.createJob(builder ,new ProgressListener() {
-
-       // Using the FFmpegProbeResult determine the duration of the input
-
-       @Override
-       public void progress(Progress progress) {
-
-         // Print out interesting information about the progress
-         System.out.println(
-                 String.format(
-                         "[%.0f%%] status:%s frame:%d time:%s fps:%.0f speed:%.2fx",
-                         progress.status,
-                         progress.frame,
-                         FFmpegUtils.toTimecode(progress.out_time_ns, TimeUnit.NANOSECONDS),
-                         progress.fps.doubleValue(),
-                         progress.speed));
-       }
-     }).run();
-
+	
+	    // Using the FFmpegProbeResult determine the duration of the input
+	
+	    @Override
+	    public void progress(Progress progress) {
+	
+	      // Print out interesting information about the progress
+	      System.out.println(
+	              String.format(
+	                      "[%.0f%%] status:%s frame:%d time:%s fps:%.0f speed:%.2fx",
+	                      progress.status,
+	                      progress.frame,
+	                      FFmpegUtils.toTimecode(progress.out_time_ns, TimeUnit.NANOSECONDS),
+	                      progress.fps.doubleValue(),
+	                      progress.speed));
+	    }
+	  }).run();
+	
 		 // Or run a two-pass encode (which is better quality at the cost of being slower)
 		 executor.createTwoPassJob(builder).run();
 			
-	 }
+	}
+
+	 
+	public void videoEffectAddon(String fileName) throws IOException {
+	  FFmpeg ffmpeg = new FFmpeg(ffmpegPath);
+	  FFmpegBuilder builder = new FFmpegBuilder()
+	          .addInput(uploadPath + "test.png") // 배경 이미지 입력 파일
+	          .addInput(uploadPath + fileName) // 주 영상 입력 파일
+	          .addExtraArgs("-filter_complex", "[0:v]colorkey=green[transper];[1:v][transper]overlay[out]") // 필터 설정
+	          .addOutput(uploadPath + "result.mp4") // 출력 파일
+	          .addExtraArgs("-map", "[out]") // 출력 스트림 매핑
+	          .done();
+	
+	  FFmpegExecutor executor = new FFmpegExecutor(ffmpeg);
+	  try {
+	      executor.createJob(builder).run();
+	      System.out.println("FFmpeg 실행 완료");
+	  } catch (Exception e) {
+	      e.printStackTrace();
+	  }
+	}
+
+	 
 	 
 	 public Map<String,Object> getVideoInfo(String fileName) throws IOException {
 		 Map<String,Object> result = new HashMap<String, Object>();
 		 ObjectMapper objectMapper = new ObjectMapper();
 		 
 		 FFprobe ffprobe = new FFprobe(ffprobePath);
+		 System.out.println("uploadPath + fileName > " + uploadPath + fileName);
 		 FFmpegProbeResult probeResult = ffprobe.probe(uploadPath + fileName);
 		 
 		 FFmpegFormat format = probeResult.getFormat();
@@ -260,6 +280,8 @@ public void uploadFile(MultipartFile vd , String checkSize) throws Exception {
 	}
 	
 	  */
+	 
+	 
 	 
 	 
 	 
