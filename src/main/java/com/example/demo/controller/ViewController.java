@@ -6,14 +6,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ViewController {
  
-	@RequestMapping("/")
+	@RequestMapping("/upload")
 	public String index() {
-		return "index";
+		return "upload";
 	}
 	
 	@RequestMapping("/demo")
 	public String demo() {
 		return "demo";
 	}
+	
+	/***************************************************
+	 * Admin Page Start
+	 ***************************************************/
+
 	
 }

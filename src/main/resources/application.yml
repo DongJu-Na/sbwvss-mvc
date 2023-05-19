@@ -4,8 +4,12 @@ spring:
   thymeleaf:
     prefix : classpath:templates/
     suffix : .html
+    cache: false
 
-      
+server:
+  error:
+    whitelabel:
+      enabled: false
   
   
 ---
