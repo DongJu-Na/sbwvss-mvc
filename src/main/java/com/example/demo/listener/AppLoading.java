@@ -16,6 +16,7 @@ public class AppLoading implements ApplicationListener<ApplicationEvent> {
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         List<Person> personList = personService.getAllPersons();
+        System.out.println("personList > " + personList.size());
         for(Person person: personList) {
             System.out.println(person.getName());
         }
