@@ -1,4 +1,5 @@
 (function($) {
+	alert("1")
   'use strict';
   $(function() {
     var sidebar = $('.sidebar');
