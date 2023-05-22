@@ -4,11 +4,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import org.springframework.security.core.userdetails.User;
 
 @Configuration
 @EnableWebSecurity
@@ -28,9 +33,12 @@ public class SecurityConfig {
 	            .addHeaderWriter(new XFrameOptionsHeaderWriter(
 	                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
 	            .and()
+	            // 시큐리티 로그인 행위 분리
 	            .formLogin()
 	            .loginPage("/pages/login")
+	            .loginProcessingUrl("/pages/login")
 	            .defaultSuccessUrl("/")
+	            .failureUrl("/error/404")
 	            .and()
 	            .logout()
 	            .logoutSuccessUrl("/pages/login")
@@ -42,6 +50,24 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public UserDetailsService userDetailsService(){
+
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder().encode("1234"))
+                .roles("ADMIN")
+                .build();
+        
+        UserDetails user = User.builder()
+            .username("user")
+            .password(passwordEncoder().encode("1234"))
+            .roles("USER")
+            .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
     }
 	
 }
