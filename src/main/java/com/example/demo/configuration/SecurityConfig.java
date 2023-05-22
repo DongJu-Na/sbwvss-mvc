@@ -33,11 +33,11 @@ public class SecurityConfig {
 	            .addHeaderWriter(new XFrameOptionsHeaderWriter(
 	                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))
 	            .and()
-	            // 시큐리티 로그인 행위 분리
+	            // 시큐리티 로그인 로직 
 	            .formLogin()
 	            .loginPage("/pages/login")
 	            .loginProcessingUrl("/pages/login")
-	            .defaultSuccessUrl("/")
+	            .defaultSuccessUrl("/pages/dashboard")
 	            .failureUrl("/error/404")
 	            .and()
 	            .logout()
