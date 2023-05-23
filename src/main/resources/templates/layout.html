@@ -10,6 +10,12 @@
     <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="shortcut icon" th:href="@{/images/favicon.png}" />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+   
+   	<!-- Cropper.js --> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" integrity="sha512-cyzxRvewl+FOKTtpBzYjW6x6IAYUCZy3sGP40hn+DQkqeluGRCax7qztK2ImL64SA+C7kVWdLI6wvdlStawhyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" integrity="sha512-6lplKUSl86rUVprDIjiW8DuOniNX8UDoRATqZSds/7t6zCQZfaCe3e5zcGaQwxa8Kpn5RTM9Fvl3X2lLV4grPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
 </head>
 
 <body>
@@ -18,7 +24,7 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-            <a class="navbar-brand brand-logo" href="index.html">
+            <a class="navbar-brand brand-logo" href="/">
                 <img th:src="@{/images/logo.svg}" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" href="index.html">
@@ -42,7 +48,7 @@
                         <a class="dropdown-item">
                             Change Password
                         </a>
-                        <a class="dropdown-item">
+                        <a href="javascript:funLogOut()" class="dropdown-item">
                             Sign Out
                         </a>
                     </div>
@@ -79,11 +85,19 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{dashboard}">
-                        <i class="menu-icon mdi mdi-television"></i>
-                        <span class="menu-title">Dashboard</span>
+                    <a class="nav-link" th:href="@{/pages/template}">
+                        <i class="menu-icon mdi mdi-table"></i>
+                        <span class="menu-title">템플릿만들기</span>
                     </a>
                 </li>
+                
+               	<li class="nav-item">
+                    <a class="nav-link" th:href="@{/pages/templateList}">
+                        <i class="menu-icon mdi mdi-television"></i>
+                        <span class="menu-title">템플릿목록</span>
+                    </a>
+                </li>
+             <!--    
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="menu-icon mdi mdi-content-copy"></i>
@@ -148,9 +162,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#"> 500 </a>
                             </li>
-                        </ul>
+                        </ul> 
                     </div>
-                </li>
+                </li> -->
             </ul>
         </nav>
 
@@ -236,9 +250,29 @@
         $('#product-btn-save').prop('disabled', true);
         $('#product-btn-edit').prop('disabled', false);
     }
+    
+    function funLogOut() {
+    	
+    	console.debug("funLogOut");
+    	var xhr = new XMLHttpRequest();
+    	xhr.open('POST', '/pages/logout');
+    	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    	xhr.onload = function() {
+    	  if (xhr.status === 200) {
+    		  console.info("logout!");
+    		window.location.href = '/pages/login'; 
+    	    // 성공 시 동작
+    	  } else {
+    	    // 오류 시 동작
+    		  console.info("logout Fail!");
+    	  }
+    	};
+    	xhr.send();
+    	console.debug(xhr);
+    	
+    }
 
 </script>
-
 
 </body>
 </html>
