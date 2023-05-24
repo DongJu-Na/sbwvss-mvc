@@ -6,13 +6,15 @@
     <title>Home</title>
     <style>
     .imgBox{
-		cursor: pointer;    
+		cursor: pointer;
+		width:300px;
+		height: 208px;     
     }
     </style>
 </head>
 <body>
 <section layout:fragment="content">
-	<div id="equipment" class="row" style="opacity: 0">
+	<div id="equipment" class="row" style="opacity: 1">
 		  <div class="col-12 grid-margin">
 		  	<div class="card">
 		  		<!-- 12.5% -->
@@ -32,22 +34,21 @@
 	
 	
 	<div class="row  d-flex align-items-stretch grid-margin">
-		<div class="col-md-12">
+		<div class="col-md-6">
 			<div class="card">
 				<div class="card-body">
 				 	<div class="form-group" style="margin-bottom: 0;">
-				 																			
 						<img id="img1" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img1" onclick="imgChangeFn('1')"/>
-						<input id="imgFile1" type="file" style="display: none;"/>
+						<input id="imgFile1" onchange="readURL(this);"  type="file" style="display: none;"/>
 						<img id="img2" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img2" onclick="imgChangeFn('2')"/>
-						<input id="imgFile2" type="file" style="display: none;"/>
+						<input id="imgFile2" onchange="readURL(this);" type="file" style="display: none;"/>
 				 	</div>
 				 	
 				 	<div class="form-group">
 				 		<img id="img3" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img3" onclick="imgChangeFn('3')"/>
-				 		<input id="imgFile3" type="file" style="display: none;"/>
+				 		<input id="imgFile3" onchange="readURL(this);" type="file" style="display: none;"/>
 					 	<img id="img4" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img4" onclick="imgChangeFn('4')"/>
-					 	<input id="imgFile4" type="file" style="display: none;"/>
+					 	<input id="imgFile4" onchange="readURL(this);" type="file" style="display: none;"/>
 				 	</div>
 				 	
 				 	<button type="button" class="btn btn-success mr-2">저장</button>
@@ -55,6 +56,16 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body" style="height: 526.06px">
+					<!-- /api/v1/stream/ -->
+				 	<video src="" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 
 <script>
@@ -62,38 +73,38 @@
 function editMenuFn(_e){
 	//data-type
 	$this = _e;
-	console.log("$this",$this);
+	console.info("$this",$this);
+	alert("준비중");
 }
 
 function imgChangeFn(elNum){
 	$("#imgFile"+elNum).trigger( 'click' );
-	
-	var reader = new FileReader();
-		reader.onload = function(e) {
-			console.log(e);
-		}
-		//reader.readAsDataURL(input.files[0]);
 }
 
-function readURL(input,_type) {
+function readURL(input) {
 	var reader = new FileReader();
 	    reader.onload = function(e) {
-	      $('.image-upload-wrap').hide();
-	      $('.file-upload-video').attr('src', e.target.result);
-	      var videoTagRef = $('.file-upload-video')[0];
-	      	  videoTagRef.addEventListener('loadedmetadata', function(){
-	        $("#videoInfo").append(`동영상 원본 해상도 높이 :${videoTagRef.videoHeight} 너비 : ${videoTagRef.videoWidth}`);
-	      }, {once: true});
-	      
-	      $('.file-upload-content').show();
-
-	      $('.image-title').html(input.files[0].name);
+	    	var targetNum = input.id.replace("imgFile","");
+	      $(`#img${targetNum}`).attr('src', e.target.result);
 	    };
-
 	    reader.readAsDataURL(input.files[0]);
-
-
+	return true;
 }
+
+function save(){
+	
+	return true;
+}
+
+function editForm(_flag){
+	if(_flag){
+		
+	}else{
+		
+	}
+}
+
+
 
 </script>
 
