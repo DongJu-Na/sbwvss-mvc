@@ -8,8 +8,12 @@
 		cursor: pointer;
 	}
 
-	.hover{
+	.templateDiv > div:hover{
+		border : 2px #5aff4c solid;
+	}
 	
+	.templateDiv > div:active{
+		background-color: #baffb5;
 	}
 	
 
@@ -34,7 +38,7 @@
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 65% lower growth
+                        <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 사진 4분할 동영상 병합
                     </p>
                 </div>
             </div>
@@ -54,12 +58,12 @@
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales
+                        <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> QR Code 삽입
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv" onclick="createTemplateFn('3')">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv" onclick="alert('준비중 입니다.')">
             <div class="card card-statistics">
                 <div class="card-body">
                     <div class="clearfix">
@@ -74,12 +78,12 @@
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Weekly Sales
+                        <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> 준비중 입니다.
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv" onclick="createTemplateFn('4')">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv" onclick="alert('준비중 입니다.')">
             <div class="card card-statistics">
                 <div class="card-body">
                     <div class="clearfix">
@@ -94,18 +98,23 @@
                         </div>
                     </div>
                     <p class="text-muted mt-3 mb-0">
-                        <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Product-wise sales
+                        <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> 준비중 입니다.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 	
-	<script>
-		// 호버 이벤트
-		$(".templateDiv").on("mouseover ",(e)=>{
+<script>
+	$(".templateDiv").on({ 
+		mouseover: function(e) {
 			console.log(e);
-		})
+		},
+		mouseleave: function(e) {
+			console.log(e);
+			e.currentTarget
+		}
+	});
 	
 	function createTemplateFn(_query){
 			if(_query === null || _query === undefined) return false;
@@ -113,7 +122,7 @@
 	}
 		
 		
-	</script>
+</script>
 </section>
 </body>
 

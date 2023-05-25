@@ -70,6 +70,3 @@ video:
   uploadPath: /home/users/djna/jar/videoServer/upload/
   ffmpegPath:  /home/users/djna/jar/videoServer/ffmpeg/ffmpeg
   ffprobePath: /home/users/djna/jar/videoServer/ffmpeg/ffprobe
-  
-
- 

@@ -21,7 +21,7 @@ dependencies {
     
 	
 	// ffmpeg
-	implementation group: 'net.bramp.ffmpeg', name: 'ffmpeg', version: '0.6.2'
+	implementation group: 'net.bramp.ffmpeg', name: 'ffmpeg', version: '0.7.0'
 	
 	// Apache Commons CLI
 	implementation group: 'commons-cli', name: 'commons-cli', version: '1.4'
@@ -31,6 +31,9 @@ dependencies {
 	
 	//thymeleaf-layout-dialect
 	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect'
+	
+	//ZXing Core
+	implementation 'com.google.zxing:core:3.4.1'
 	
 	// h2
 	runtimeOnly 'com.h2database:h2'

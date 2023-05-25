@@ -10,77 +10,38 @@
 <body>
 <section layout:fragment="content">
 	
-    <div class="row">
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
-            <div class="card card-statistics">
-                <div class="card-body">
-                  	<video src="/api/v1/stream/kakaotalk_1684748821144.mp4" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
-                </div>
-            </div>
-        </div>
-        
-       <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
-            <div class="card card-statistics">
-                <div class="card-body">
-                  	<video src="/api/v1/stream/finalOutput_gifTest.mp4" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
-            <div class="card card-statistics">
-                <div class="card-body">
-                  	<video src="/api/v1/stream/output_text_test.mp4" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
-            <div class="card card-statistics">
-                <div class="card-body">
-                  	<video src="/api/v1/stream/output-swipe-custom.mp4" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
-            <div class="card card-statistics">
-                <div class="card-body">
-                  	<video src="/api/v1/stream/output_top_right.mp4" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
-            <div class="card card-statistics">
-                <div class="card-body">
-                  	<video src="/api/v1/stream/effict0.mp4" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
-                </div>
-            </div>
-        </div>
-        
-       <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
-            <div class="card card-statistics">
-                <div class="card-body">
-                  	<video src="/api/v1/stream/effict1.mp4" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
-                </div>
-            </div>
-        </div>
-        
-       <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
-            <div class="card card-statistics">
-                <div class="card-body">
-                  	<video src="/api/v1/stream/output_talk.mp4" controls="controls" autoplay="autoplay" muted="muted" loop="loop"  width="325" height="225"></video>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row" id="appendDiv"></div>
 	
 	<script>
-		// 호버 이벤트
-		$(".templateDiv").on("mouseover ",(e)=>{
-			//console.log(e);
-		})
+		$(function() {
+			$.ajax({
+			    type : 'get',          
+			    url : '/api/v1/stream/getVideoFile',
+			    async : false,
+			    dataType:'json',
+			    success : function(result) { // 결과 성공 콜백함수
+			    	if(result.length > 0){
+			    		let _html = "";
+			    		for(let a=0; a< result.length; a++){
+			    			_html += `
+				    		        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card templateDiv">
+					    	            <div class="card card-statistics">
+					    	                <div class="card-body">
+					    	                  	<video src="/api/v1/stream/${result[a]}" controls="controls" autoplay="autoplay" muted="muted" loop="loop"  width="325" height="225"></video>
+					    	                </div>
+					    	            </div>
+					    	        </div>
+			    				`
+			    		}
+			    		
+			    		$("#appendDiv").append(_html);
+			    	}
+			    },
+			    error : function(request, status, error) {
+			        console.error(error);
+			    }
+			})
+		});
 	</script>
 </section>
 </body>

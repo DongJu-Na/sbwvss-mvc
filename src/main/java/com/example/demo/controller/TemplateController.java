@@ -22,7 +22,7 @@ public class TemplateController {
     
     @GetMapping(value = "templateEdit/{tCode}")
     public String templateEdit(@PathVariable("tCode") String tCode) {
-        return "pages/templateEdit";
+        return "pages/templateEdit" + tCode;
     }
 
 }

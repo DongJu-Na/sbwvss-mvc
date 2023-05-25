@@ -3,6 +3,10 @@ package com.example.demo.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +55,27 @@ public class ApiController {
       return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
   }
   
+  @GetMapping("/getVideoFile")
+  public ResponseEntity<List<String>> getVideoFile() throws Exception {
+      List<String> result = null;
+      
+      String directoryPath = uploadPath; 
+      
+      File directory = new File(directoryPath);
+      File[] files = directory.listFiles();
+      
+      List<String> fileNames = new ArrayList<>();
+      if (files != null) {
+        for (File file : files) {
+            if (file.isFile() && file.getName().endsWith(".mp4")) {
+                fileNames.add(file.getName());
+            }
+        }
+    }
+      
+      return ResponseEntity.ok(fileNames);
+  }
+  
   @PostMapping("/upload")
   public ResponseEntity<String> streamResourceUploadDisk(@RequestParam("video") MultipartFile vd,
   																											 @RequestParam("checkSize") String checkSize
@@ -66,5 +91,29 @@ public class ApiController {
   	  }
       return new ResponseEntity<>("success", HttpStatus.OK);
   }
-	
+  
+  
+  @PostMapping("/save")
+  public ResponseEntity<Map<String, Object>> createVideo(@RequestParam Map<String, MultipartFile> files,
+                                                        @RequestParam(value = "templateCode", required = true) String tc,
+                                                        @RequestParam(value = "qrcodeUrl", required = false) String qrcodeUrl,
+                                                        @RequestParam(value = "qrCodeLocation", required = false) String qrCodeLocation
+                                                        ) throws Exception {
+      String resultFileName = "";
+      if (!files.isEmpty()) {
+          try {
+              resultFileName = service.save(files, tc, qrcodeUrl, qrCodeLocation);
+          } catch (Exception e) {
+              e.printStackTrace();
+              return ResponseEntity.ok().body(Collections.singletonMap("status", "fail"));
+          }
+      }
+      
+      Map<String, Object> response = new HashMap<>();
+      response.put("status", "success");
+      response.put("resultFileName", resultFileName);
+      
+      return ResponseEntity.ok().body(response);
+  }
+  
 }

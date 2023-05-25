@@ -38,20 +38,35 @@
 			<div class="card">
 				<div class="card-body">
 				 	<div class="form-group" style="margin-bottom: 0;">
-						<img id="img1" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img1" onclick="imgChangeFn('1')"/>
-						<input id="imgFile1" onchange="readURL(this);"  type="file" style="display: none;"/>
-						<img id="img2" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img2" onclick="imgChangeFn('2')"/>
-						<input id="imgFile2" onchange="readURL(this);" type="file" style="display: none;"/>
+				 		<div class="input-group">
+                            <div class="input-group-prepend bg-info">
+                              <span class="input-group-text bg-transparent" style="color: white;">
+                                QRCODE URL
+                              </span>
+                            </div>
+                            <input id="qrcodeUrl" type="text" class="form-control" placeholder="https://www.mobon.net/" aria-label="qrcodeUrl" aria-describedby="colored-addon1">
+                            
+                       	<label class="col-sm-12 col-form-label">QR위치</label>
+                          <div class="col-sm-12">
+                            <select id="qrCodeLocation" class="form-control">
+                              <option value="leftTop">좌측 상단</option>
+                              <option value="leftBottom">좌측 하단</option>
+                              <option value="centor">중앙</option>
+                              <option value="rightTop">우측 상단</option>
+                              <option value="rightBottom">우측 하단</option>
+                            </select>
+                          </div>
+                          
+               			</div>
+               			
+             
+                
+				 		<button style="width: 100%;" type="button" class="btn btn-primary mr-2" onclick="selectorClick('1','#videoFile')">동영상불러오기</button>
+				 		<video id="targetVideo" src="" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="734.91px" height="440px"></video>
+						<input id="videoFile1" onchange="readURL(this,'videoFile','#targetVideo');"  type="file" style="display: none;"/>
 				 	</div>
 				 	
-				 	<div class="form-group">
-				 		<img id="img3" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img3" onclick="imgChangeFn('3')"/>
-				 		<input id="imgFile3" onchange="readURL(this);" type="file" style="display: none;"/>
-					 	<img id="img4" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img4" onclick="imgChangeFn('4')"/>
-					 	<input id="imgFile4" onchange="readURL(this);" type="file" style="display: none;"/>
-				 	</div>
-				 	
-				 	<button type="button" class="btn btn-success mr-2">저장</button>
+				 	<button type="button" class="btn btn-success mr-2" onclick="save()">저장</button>
 				 		
 				</div>
 			</div>
@@ -59,55 +74,16 @@
 		
 		<div class="col-md-6">
 			<div class="card">
-				<div class="card-body" style="height: 526.06px">
+				<div class="card-body" style="height: 680px">
 					<!-- /api/v1/stream/ -->
-				 	<video src="" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="325" height="225"></video>
+				 	<video id="resultVideo" src="" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="100%" height="100%"></video>
 				</div>
 			</div>
 		</div>
 		
 	</div>
 
-<script>
-
-function editMenuFn(_e){
-	//data-type
-	$this = _e;
-	console.info("$this",$this);
-	alert("준비중");
-}
-
-function imgChangeFn(elNum){
-	$("#imgFile"+elNum).trigger( 'click' );
-}
-
-function readURL(input) {
-	var reader = new FileReader();
-	    reader.onload = function(e) {
-	    	var targetNum = input.id.replace("imgFile","");
-	      $(`#img${targetNum}`).attr('src', e.target.result);
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	return true;
-}
-
-function save(){
-	
-	return true;
-}
-
-function editForm(_flag){
-	if(_flag){
-		
-	}else{
-		
-	}
-}
-
-
-
-</script>
-
+<script th:src="@{/js/edit.js}"></script>
 </section>
 
 
