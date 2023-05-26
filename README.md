@@ -3,7 +3,7 @@ Spring Boot WebMvc Video Streaming Server
 
 
 # 트러블 슈팅 🚀
--
+- 동영상 제작 프로세스 사용자에게 안내 방법  웹소켓?
 
 # 라이브러리 선정
 VLCJ와 FFmpeg의 각각의 장단점은 다음과 같습니다.
