@@ -51,7 +51,15 @@ function save(){
 	    processData : false,
 	    dataType:'json',
 	    data : formData,
-	    success : function(result) { // 결과 성공 콜백함수
+	    xhr: function(){
+			var xhr = $.ajaxSettings.xhr();
+			xhr.upload.onprogress = function(e){
+				var per = e.loaded * 100 / e.total;
+				console.log(per);
+			};
+			return xhr;
+		},
+		success : function(result) { // 결과 성공 콜백함수
 	        console.info(result);
 	        if(result["status"] === "success"){
 				$("#resultVideo").attr('src', `/api/v1/stream/${result['resultFileName']}`);
