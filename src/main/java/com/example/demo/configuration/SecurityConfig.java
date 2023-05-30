@@ -31,7 +31,7 @@ public class SecurityConfig {
 		  http.headers().frameOptions().sameOrigin();
 		
 			http.authorizeRequests()
-							.antMatchers("/pages/login" , "/h2-console/**" , "/pages/logout").permitAll()
+							.antMatchers("/pages/login" , "/h2-console/**" , "/pages/logout" ,"/error/**").permitAll()
 	            .antMatchers("/js/**", "/css/**", "/vendors/**" , "/images/**").permitAll()
 	            .anyRequest().authenticated()
 	            .and()
@@ -43,7 +43,7 @@ public class SecurityConfig {
 	  	            .loginPage("/pages/login")
 	  	            .loginProcessingUrl("/pages/login")
 	  	            .defaultSuccessUrl("/pages/template")
-	  	            .failureUrl("/error/404"))
+	  	            .failureUrl("/error"))
 	            .logout()
 	            .deleteCookies("JSESSIONID")
 	            .logoutUrl("/pages/logout")

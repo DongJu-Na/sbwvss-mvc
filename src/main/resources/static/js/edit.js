@@ -40,6 +40,9 @@ function save(){
 	if(_templateCode === "2"){
 		formData.append("qrcodeUrl", $("#qrcodeUrl").val().trim());
 		formData.append("qrCodeLocation",$("#qrCodeLocation option:selected").val());
+		formData.append("qrcodeBgColor",$("#qrcodeBgColor").val());
+		formData.append("qrcodeColor",$("#qrcodeColor").val());
+		formData.append("bgTransparent",`${$("#bgTransparent").prop("checked") ? "Y" : "N"}`);
 	}
 	
 	const progressBar = document.getElementById('progressPst');
@@ -78,6 +81,7 @@ function save(){
 		},
 	    error : function(request, status, error) { // 결과 에러 콜백함수
 	        console.log(error);
+	        alert("동영상 제작 실패 \n 관리자에게 문의하세요.");
 	    }
 	})
 	

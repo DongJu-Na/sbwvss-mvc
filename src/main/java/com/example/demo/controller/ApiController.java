@@ -97,12 +97,16 @@ public class ApiController {
   public ResponseEntity<Map<String, Object>> createVideo(@RequestParam Map<String, MultipartFile> files,
                                                         @RequestParam(value = "templateCode", required = true) String tc,
                                                         @RequestParam(value = "qrcodeUrl", required = false) String qrcodeUrl,
-                                                        @RequestParam(value = "qrCodeLocation", required = false) String qrCodeLocation
+                                                        @RequestParam(value = "qrCodeLocation", required = false) String qrCodeLocation,
+                                                        @RequestParam(value = "qrcodeBgColor", required = false) String qrcodeBgColor,
+                                                        @RequestParam(value = "qrcodeColor", required = false) String qrcodeColor,
+                                                        @RequestParam(value = "bgTransparent", required = false) String bgTransparent
+                                                        // 파라미터가... 추후 Map으로 관리
                                                         ) throws Exception {
       String resultFileName = "";
       if (!files.isEmpty()) {
           try {
-              resultFileName = service.save(files, tc, qrcodeUrl, qrCodeLocation);
+              resultFileName = service.save(files, tc, qrcodeUrl, qrCodeLocation ,qrcodeBgColor ,qrcodeColor , bgTransparent);
           } catch (Exception e) {
               e.printStackTrace();
               return ResponseEntity.ok().body(Collections.singletonMap("status", "fail"));
@@ -117,3 +121,4 @@ public class ApiController {
   }
   
 }
+

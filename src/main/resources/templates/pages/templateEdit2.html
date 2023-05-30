@@ -59,7 +59,32 @@
                           
                			</div>
                			
-             
+             			<div class="row">
+                            <div class="col-6 col-md-6">
+                                <label class="col-sm-6 col-form-label">QRcode 배경색</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span id="qrBgIcon" class="input-group-text getcol" style="background: rgb(0 0 0); color: rgb(0 0 0);"><i class="mdi mdi-qrcode text-white"></i></span>
+                                    </div>
+                                    <input type="text" id="qrcodeBgColor" class="form-control colorpickerback colorpicker-element" data-format="hex" value="#FFFFFF" name="backcolor" data-colorpicker-id="1" data-original-title="" title="" readonly="readonly">
+                                </div>
+                                <div class="form-check">
+		                            <label class="form-check-label">
+		                              <input id="bgTransparent" type="checkbox" class="form-check-input"> 배경 투명화
+		                            <i class="input-helper"></i></label>
+	                          	 </div>
+                            </div>
+
+                            <div class="col-6 col-md-6">
+                                <label class="col-sm-6 col-form-label">QRcode 색</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text getcol" style="background: rgb(0 0 0); color: rgb(0 0 0);"><i id="qrIcon" class="mdi mdi-qrcode text-white"></i></span>
+                                    </div>
+                                    <input id="qrcodeColor" dir="ltr" type="text" class="form-control colorpickerfront colorpicker-element" data-format="hex" value="#000000" name="frontcolor" data-colorpicker-id="2" data-original-title="" title="" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
                 
 				 		<button style="width: 100%;" type="button" class="btn btn-primary mr-2" onclick="selectorClick('1','#videoFile')">동영상불러오기</button>
 				 		<video id="targetVideo" src="" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="734.91px" height="440px"></video>
@@ -74,7 +99,7 @@
 		
 		<div class="col-md-6">
 			<div class="card">
-				<div class="card-body" style="height: 680px">
+				<div class="card-body" style="height: 796px">
 					<!-- /api/v1/stream/ -->
 					<progress id="progressPst" value="0" max="100"></progress>
 				 	<video id="resultVideo" src="" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="100%" height="100%"></video>
@@ -85,6 +110,37 @@
 	</div>
 
 <script th:src="@{/js/edit.js}"></script>
+<script>
+$(function () {
+    $('#qrcodeBgColor').colorpicker();
+    $('#qrcodeColor').colorpicker();
+    
+    $('#qrcodeBgColor').on('colorpickerChange', function(e) {
+    	 $(this).val(e.color.toString());
+    	 $(this).removeProp("disabled");
+    	 $("#qrBgIcon").css("background-color",e.color.toString());
+    });
+    
+    $('#qrcodeColor').on('colorpickerChange', function(e) {
+    	let color = `color: ${e.color.toString()} !important`;
+        $("#qrIcon").attr('style', color);
+      });
+    
+    $("#bgTransparent").on("change",function(e){
+    	if(e.target.checked){
+    		console.log("check if");
+    		$( "#qrcodeBgColor" ).prop( "disabled", true );
+    		$("#qrBgIcon").css("background-color","rgba(0,0,0,0)");
+    		let color = `color: black !important`;
+    		$("#qrBgIcon > i").attr('style', color);	
+    	}else{
+    		console.log("check else");
+    		$( "#qrcodeBgColor" ).prop( "disabled", false );	
+    	}
+    });
+    
+  });
+</script>
 </section>
 
 

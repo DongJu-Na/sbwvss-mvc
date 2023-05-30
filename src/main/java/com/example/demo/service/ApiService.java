@@ -293,7 +293,9 @@ public void videoMinify(String fileName) throws IOException {
 	  */
 	 
 	 
-	 public String save(Map<String, MultipartFile> files , String tc , String qrcodeUrl , String qrCodeLocation) throws Exception {
+	 public String save(Map<String, MultipartFile> files , String tc , String qrcodeUrl , String qrCodeLocation
+			 									,String qrcodeBgColor ,String qrcodeColor , String bgTransparent
+			 ) throws Exception {
 		  String resultFileName = "";
 			String filePath = uploadPath;
 			String saveFileName = "", savaFilePath = "";
@@ -403,10 +405,17 @@ public void videoMinify(String fileName) throws IOException {
        Graphics2D graphics = (Graphics2D) qrCodeImage.getGraphics();
        
        // QR 코드 이미지 커스터마이징
-       Color backGroundColor = new Color(255, 255, 255, 0);
+       // qrcodeBgColor ,qrcodeColor , bgTransparent
+       Color backGroundColor;
+       if(bgTransparent.equals("Y")) {
+      	 backGroundColor = new Color(0, 0, 0, 0); 
+       }else {
+      	 backGroundColor = Color.decode(qrcodeBgColor);
+       }
+       
        graphics.setColor(backGroundColor); // 배경 색상 설정
        graphics.fillRect(0, 0, qrSize, qrSize);
-       graphics.setColor(Color.BLACK); // QR 코드 색상 설정
+       graphics.setColor(Color.decode(qrcodeColor)); // QR 코드 색상 설정
        
        // QR 코드 그리기
        for (int x = 0; x < qrSize; x++) {
