@@ -42,30 +42,40 @@ function save(){
 		formData.append("qrCodeLocation",$("#qrCodeLocation option:selected").val());
 	}
 	
+	const progressBar = document.getElementById('progressPst');
+	
 	$.ajax({
 	    type : 'post',          
 	    url : '/api/v1/stream/save',
-	    async : false,
+	    async : true,
 	    enctype:'multipart/form-data',
 	    contentType : false,
 	    processData : false,
 	    dataType:'json',
 	    data : formData,
 	    xhr: function(){
-			var xhr = $.ajaxSettings.xhr();
+			const xhr = $.ajaxSettings.xhr();
 			xhr.upload.onprogress = function(e){
 				var per = e.loaded * 100 / e.total;
-				console.log(per);
+				if(per < 95){
+					progressBar.value = `${per}`;
+					console.log(per);	
+				}
 			};
 			return xhr;
 		},
 		success : function(result) { // 결과 성공 콜백함수
 	        console.info(result);
+	        progressBar.value = 100;
 	        if(result["status"] === "success"){
 				$("#resultVideo").attr('src', `/api/v1/stream/${result['resultFileName']}`);
 				alert("동영상 제작 완료");
 			}
 	    },
+	    complete: function () {
+			//성공, 실패와 상관없이 실행하고 싶은 로직
+			progressBar.value = 0;
+		},
 	    error : function(request, status, error) { // 결과 에러 콜백함수
 	        console.log(error);
 	    }
@@ -108,6 +118,7 @@ function editForm(_flag){
 		
 	}
 }
+
 
 
 /********************************************************************************************************************************************
