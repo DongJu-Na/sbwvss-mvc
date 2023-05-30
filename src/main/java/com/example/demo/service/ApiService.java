@@ -399,11 +399,12 @@ public void videoMinify(String fileName) throws IOException {
        BitMatrix bitMatrix = qrCodeWriter.encode(qrcodeUrl, BarcodeFormat.QR_CODE, qrSize, qrSize);
        
        // BufferedImage 생성 및 그래픽스2D 객체 가져오기
-       BufferedImage qrCodeImage = new BufferedImage(qrSize, qrSize, BufferedImage.TYPE_INT_RGB);
+       BufferedImage qrCodeImage = new BufferedImage(qrSize, qrSize, BufferedImage.TYPE_4BYTE_ABGR);
        Graphics2D graphics = (Graphics2D) qrCodeImage.getGraphics();
        
        // QR 코드 이미지 커스터마이징
-       graphics.setColor(Color.WHITE); // 배경 색상 설정
+       Color backGroundColor = new Color(255, 255, 255, 0);
+       graphics.setColor(backGroundColor); // 배경 색상 설정
        graphics.fillRect(0, 0, qrSize, qrSize);
        graphics.setColor(Color.BLACK); // QR 코드 색상 설정
        
