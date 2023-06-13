@@ -43,6 +43,19 @@ function save(){
 		formData.append("qrcodeBgColor",$("#qrcodeBgColor").val());
 		formData.append("qrcodeColor",$("#qrcodeColor").val());
 		formData.append("bgTransparent",`${$("#bgTransparent").prop("checked") ? "Y" : "N"}`);
+	}else if(_templateCode === "3"){
+		formData.append("fadeEffect1", $("#fadeEffect1").val());
+		formData.append("fadeEffect2", $("#fadeEffect2").val());
+		formData.append("fadeEffect3", $("#fadeEffect3").val());
+		
+		formData.append("textColor1", $("#textColor1").val());
+		formData.append("textColor2", $("#textColor2").val());
+		formData.append("textColor3", $("#textColor3").val());
+		
+		formData.append("pic1Text", $("#pic1Text").val());
+		formData.append("pic2Text", $("#pic2Text").val());
+		formData.append("pic3Text", $("#pic3Text").val());
+		
 	}
 	
 	const progressBar = document.getElementById('progressPst');
