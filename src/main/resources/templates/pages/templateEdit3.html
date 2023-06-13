@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Home</title>
+    <style>
+    .imgBox{
+		cursor: pointer;
+		width:300px;
+		height: 208px;     
+    }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+	<div id="equipment" class="row" style="opacity: 1">
+		  <div class="col-12 grid-margin">
+		  	<div class="card">
+		  		<!-- 12.5% -->
+		  		<div class="icons-list row">
+                      <div onclick="editMenuFn(this)" data-type="crop"  style="padding: 0" class="col-sm-6 col-md-4 col-lg-1"><i class="mdi mdi-crop"></i></div>
+                      <div onclick="editMenuFn(this)" data-type="rotate"  style="padding: 0" class="col-sm-6 col-md-4 col-lg-1"><i class="mdi mdi-format-rotate-90"></i></div>
+                      <div onclick="editMenuFn(this)" data-type="center"  style="padding: 0" class="col-sm-6 col-md-4 col-lg-1"><i class="mdi mdi-image-filter-center-focus-weak"></i></div>
+                      <div onclick="editMenuFn(this)" data-type="horizontal"  style="padding: 0" class="col-sm-6 col-md-4 col-lg-1"><i class="mdi mdi-format-horizontal-align-center"></i></div>
+                      <div onclick="editMenuFn(this)" data-type="vertical"  style="padding: 0" class="col-sm-6 col-md-4 col-lg-1"><i class="mdi mdi-format-vertical-align-center"></i></div>
+                      <div onclick="editMenuFn(this)" data-type="eyedropper"  style="padding: 0" class="col-sm-6 col-md-4 col-lg-1"><i class="mdi mdi-eyedropper-variant"></i></div>
+                      <div onclick="editMenuFn(this)" data-type="palette"  style="padding: 0" class="col-sm-6 col-md-4 col-lg-1"><i class="mdi mdi-palette"></i></div>
+                      <div onclick="editMenuFn(this)" data-type="filter"  style="padding: 0" class="col-sm-6 col-md-4 col-lg-1"><i class="mdi mdi-filter"></i></div>
+                </div>
+		  	</div>
+		  </div>
+	</div>
+	
+	
+	<div class="row  d-flex align-items-stretch grid-margin">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+				 	<div class="form-group col-md-12" style="margin-bottom: 0;">
+						<div class="container">
+						  <div class="row">
+						    <div class="col-sm">
+						      	<img id="img1" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img1" onclick="selectorClick('1','#imgFile')"/>
+								<input id="imgFile1" onchange="readURL(this,'imgFile','#img1');"  type="file" style="display: none;"/>
+						    </div>
+						    <div class="col-sm">
+		      					<div class="input-group">
+			                       	<label class="col-sm-12 col-form-label">Xfade 효과 선택</label>
+			                          <div class="col-sm-12">
+			                            <select id="fadeEffect1" class="form-control">
+											<option value="fade">fade</option>
+											<option value="fadeblack">fadeblack</option>
+											<option value="fadewhite">fadewhite</option>
+											<option value="distance">distance</option>
+											<option value="wipeleft">wipeleft</option> 
+											<option value="wiperight">wiperight</option> 
+											<option value="wipeup">wipeup</option> 
+											<option value="wipedown">wipedown</option>
+											<option value="slideleft">slideleft</option> 
+											<option value="slideright">slideright</option> 
+											<option value="slideup">slideup</option> 
+											<option value="slidedown">slidedown</option>
+											<option value="smoothleft">smoothleft</option>    
+											<option value="smoothright">smoothright</option>    
+											<option value="smoothup">smoothup</option>    
+											<option value="smoothdown">smoothdown</option>  
+											<option value="rectcrop">rectcrop</option>
+											<option value="circlecrop">circlecrop</option>
+											<option value="circleclose">circleclose</option>
+											<option value="circleopen">circleopen</option>  
+											<option value="horzclose">horzclose</option>
+											<option value="horzopen">horzopen</option>
+											<option value="vertclose">vertclose</option>    
+											<option value="vertopen">vertopen</option>  
+											<option value="diagbl">diagbl</option>
+											<option value="diagbr">diagbr</option>
+											<option value="diagtl">diagtl</option>
+											<option value="diagtr">diagtr</option>  
+											<option value="hlslice">hlslice</option>
+											<option value="hrslice">hrslice</option>
+											<option value="vuslice">vuslice</option>
+											<option value="vdslice">vdslice</option>  
+											<option value="dissolve">dissolve</option>
+											<option value="pixelize">pixelize</option>
+											<option value="radial">radial</option>
+											<option value="hblur">hblur</option>  
+											<option value="wipetl">wipetl</option>
+											<option value="wipetr">wipetr</option>
+											<option value="wipebl">wipebl</option>
+											<option value="wipebr">wipebr</option>  
+											<option value="fadegrays">fadegrays</option>
+											<option value="squeezev">squeezev</option>
+											<option value="squeezeh">squeezeh</option>
+											<option value="zoomin">zoomin</option>
+											<option value="hlwind">hlwind</option>
+											<option value="hrwind">hrwind</option>
+											<option value="vuwind">vuwind</option>
+											<option value="vdwind">vdwind</option>
+			                            </select>
+			                          </div>
+		               			</div>
+	                                <label class="col-sm-6 col-form-label">첫번째 사진 카피</label>
+	                                <div class="input-group">
+	                                    <div class="input-group-prepend">
+	                                        <span id="textColor1Icon" class="input-group-text getcol" style="background: rgb(0 0 0); color: rgb(0 0 0);"><i class="mdi mdi-format-color-fill text-white"></i></span>
+	                                    </div>
+	                                    <input type="text" id="textColor1" class="form-control colorpickerback colorpicker-element" data-format="hex" value="#FFFFFF"  data-colorpicker-id="1" data-original-title="" title="" readonly="readonly">
+	                                </div>
+	                                
+	                                <div class="input-group">
+	                                    <div class="input-group-prepend">
+	                                        <span id="pic1TextIcon" class="input-group-text getcol" style="background: rgb(0 0 0); color: rgb(0 0 0);"><i class="mdi mdi-format-text text-white"></i></span>
+	                                    </div>
+	                                    <input type="text" id="pic1Text" class="form-control colorpickerback colorpicker-element" data-format="hex" value="" placeholder="문구를 입력해주세요."  data-colorpicker-id="1" data-original-title="" title="">
+	                                </div>
+						    </div>
+						  </div>
+						</div>
+						
+						<div class="container">
+						  <div class="row">
+						    <div class="col-sm">
+						      	<img id="img2" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img2" onclick="selectorClick('2','#imgFile')"/>
+								<input id="imgFile2" onchange="readURL(this,'imgFile','#img2');"  type="file" style="display: none;"/>
+						    </div>
+						    <div class="col-sm">
+		      					<div class="input-group">
+			                       	<label class="col-sm-12 col-form-label">Xfade 효과 선택</label>
+			                          <div class="col-sm-12">
+			                            <select id="fadeEffect2" class="form-control">
+											<option value="fade">fade</option>
+											<option value="fadeblack">fadeblack</option>
+											<option value="fadewhite">fadewhite</option>
+											<option value="distance">distance</option>
+											<option value="wipeleft">wipeleft</option> 
+											<option value="wiperight">wiperight</option> 
+											<option value="wipeup">wipeup</option> 
+											<option value="wipedown">wipedown</option>
+											<option value="slideleft">slideleft</option> 
+											<option value="slideright">slideright</option> 
+											<option value="slideup">slideup</option> 
+											<option value="slidedown">slidedown</option>
+											<option value="smoothleft">smoothleft</option>    
+											<option value="smoothright">smoothright</option>    
+											<option value="smoothup">smoothup</option>    
+											<option value="smoothdown">smoothdown</option>  
+											<option value="rectcrop">rectcrop</option>
+											<option value="circlecrop">circlecrop</option>
+											<option value="circleclose">circleclose</option>
+											<option value="circleopen">circleopen</option>  
+											<option value="horzclose">horzclose</option>
+											<option value="horzopen">horzopen</option>
+											<option value="vertclose">vertclose</option>    
+											<option value="vertopen">vertopen</option>  
+											<option value="diagbl">diagbl</option>
+											<option value="diagbr">diagbr</option>
+											<option value="diagtl">diagtl</option>
+											<option value="diagtr">diagtr</option>  
+											<option value="hlslice">hlslice</option>
+											<option value="hrslice">hrslice</option>
+											<option value="vuslice">vuslice</option>
+											<option value="vdslice">vdslice</option>  
+											<option value="dissolve">dissolve</option>
+											<option value="pixelize">pixelize</option>
+											<option value="radial">radial</option>
+											<option value="hblur">hblur</option>  
+											<option value="wipetl">wipetl</option>
+											<option value="wipetr">wipetr</option>
+											<option value="wipebl">wipebl</option>
+											<option value="wipebr">wipebr</option>  
+											<option value="fadegrays">fadegrays</option>
+											<option value="squeezev">squeezev</option>
+											<option value="squeezeh">squeezeh</option>
+											<option value="zoomin">zoomin</option>
+											<option value="hlwind">hlwind</option>
+											<option value="hrwind">hrwind</option>
+											<option value="vuwind">vuwind</option>
+											<option value="vdwind">vdwind</option>
+			                            </select>
+			                          </div>
+		               			</div>
+    				             	<label class="col-sm-6 col-form-label">두번째 사진 카피</label>
+	                                <div class="input-group">
+	                                    <div class="input-group-prepend">
+	                                        <span id="textColor2Icon" class="input-group-text getcol" style="background: rgb(0 0 0); color: rgb(0 0 0);"><i class="mdi mdi-format-color-fill text-white"></i></span>
+	                                    </div>
+	                                    <input type="text" id="textColor2" class="form-control colorpickerback colorpicker-element" data-format="hex" value="#FFFFFF"  data-colorpicker-id="1" data-original-title="" title="" readonly="readonly">
+	                                </div>
+	                                
+	                                <div class="input-group">
+	                                    <div class="input-group-prepend">
+	                                        <span id="pic2TextIcon" class="input-group-text getcol" style="background: rgb(0 0 0); color: rgb(0 0 0);"><i class="mdi mdi-format-text text-white"></i></span>
+	                                    </div>
+	                                    <input type="text" id="pic2Text" class="form-control colorpickerback colorpicker-element" data-format="hex" value="" placeholder="문구를 입력해주세요."  data-colorpicker-id="1" data-original-title="" title="">
+	                                </div>
+						    </div>
+						  </div>
+						</div>
+						
+						<div class="container">
+						  <div class="row">
+						    <div class="col-sm">
+						      	<img id="img3" class="imgBox" th:src="@{/images/no-image-found.png}" alt="img3" onclick="selectorClick('3','#imgFile')"/>
+				 				<input id="imgFile3" onchange="readURL(this,'imgFile','#img3');"  type="file" style="display: none;"/>
+						    </div>
+						    <div class="col-sm">
+		      					<div class="input-group">
+			                       	<label class="col-sm-12 col-form-label">Xfade 효과 선택</label>
+			                          <div class="col-sm-12">
+			                            <select id="fadeEffect3" class="form-control">
+											<option value="fade">fade</option>
+											<option value="fadeblack">fadeblack</option>
+											<option value="fadewhite">fadewhite</option>
+											<option value="distance">distance</option>
+											<option value="wipeleft">wipeleft</option> 
+											<option value="wiperight">wiperight</option> 
+											<option value="wipeup">wipeup</option> 
+											<option value="wipedown">wipedown</option>
+											<option value="slideleft">slideleft</option> 
+											<option value="slideright">slideright</option> 
+											<option value="slideup">slideup</option> 
+											<option value="slidedown">slidedown</option>
+											<option value="smoothleft">smoothleft</option>    
+											<option value="smoothright">smoothright</option>    
+											<option value="smoothup">smoothup</option>    
+											<option value="smoothdown">smoothdown</option>  
+											<option value="rectcrop">rectcrop</option>
+											<option value="circlecrop">circlecrop</option>
+											<option value="circleclose">circleclose</option>
+											<option value="circleopen">circleopen</option>  
+											<option value="horzclose">horzclose</option>
+											<option value="horzopen">horzopen</option>
+											<option value="vertclose">vertclose</option>    
+											<option value="vertopen">vertopen</option>  
+											<option value="diagbl">diagbl</option>
+											<option value="diagbr">diagbr</option>
+											<option value="diagtl">diagtl</option>
+											<option value="diagtr">diagtr</option>  
+											<option value="hlslice">hlslice</option>
+											<option value="hrslice">hrslice</option>
+											<option value="vuslice">vuslice</option>
+											<option value="vdslice">vdslice</option>  
+											<option value="dissolve">dissolve</option>
+											<option value="pixelize">pixelize</option>
+											<option value="radial">radial</option>
+											<option value="hblur">hblur</option>  
+											<option value="wipetl">wipetl</option>
+											<option value="wipetr">wipetr</option>
+											<option value="wipebl">wipebl</option>
+											<option value="wipebr">wipebr</option>  
+											<option value="fadegrays">fadegrays</option>
+											<option value="squeezev">squeezev</option>
+											<option value="squeezeh">squeezeh</option>
+											<option value="zoomin">zoomin</option>
+											<option value="hlwind">hlwind</option>
+											<option value="hrwind">hrwind</option>
+											<option value="vuwind">vuwind</option>
+											<option value="vdwind">vdwind</option>
+			                            </select>
+			                          </div>
+		               			</div>
+		               				<label class="col-sm-6 col-form-label">두번째 사진 카피</label>
+	                                <div class="input-group">
+	                                    <div class="input-group-prepend">
+	                                        <span id="textColor3Icon" class="input-group-text getcol" style="background: rgb(0 0 0); color: rgb(0 0 0);"><i class="mdi mdi-format-color-fill text-white"></i></span>
+	                                    </div>
+	                                    <input type="text" id="textColor3" class="form-control colorpickerback colorpicker-element" data-format="hex" value="#FFFFFF"  data-colorpicker-id="1" data-original-title="" title="" readonly="readonly">
+	                                </div>
+	                                
+	                                <div class="input-group">
+	                                    <div class="input-group-prepend">
+	                                        <span id="pic3TextIcon" class="input-group-text getcol" style="background: rgb(0 0 0); color: rgb(0 0 0);"><i class="mdi mdi-format-text text-white"></i></span>
+	                                    </div>
+	                                    <input type="text" id="pic3Text" class="form-control colorpickerback colorpicker-element" data-format="hex" value="" placeholder="문구를 입력해주세요."  data-colorpicker-id="1" data-original-title="" title="">
+	                                </div>
+						    </div>
+						  </div>
+						</div>
+						
+						
+				 	</div>
+				 	
+				 	<button type="button" class="btn btn-success mr-2" onclick="save()">저장</button>
+				 		
+				</div>
+				
+				<div class="card-body">
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body" style="height: 748.06px">
+					<!-- /api/v1/stream/ -->
+					<progress id="progressPst" value="0" max="100"></progress>
+				 	<video id="resultVideo" src="" controls="controls" autoplay="autoplay" muted="muted" loop="loop" width="100%" height="100%"></video>
+				 	
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+<script th:src="@{/js/edit.js}"></script>
+<script>
+$(function () {
+	$('#textColor1').colorpicker();
+	$('#textColor2').colorpicker();
+	$('#textColor3').colorpicker();
+	
+	
+	//
+	$("#textColor1 , #textColor2 ,#textColor3").on('colorpickerChange', function(e) {
+		let currentTarget = (this.id + "").replace("textColor","");
+   	 $(`#pic${currentTarget}Text`).css("color",e.color.toString());
+   	 
+   	
+   });
+	
+	
+	
+});
+</script>
+</section>
+
+
+
+</body>
+</html>
