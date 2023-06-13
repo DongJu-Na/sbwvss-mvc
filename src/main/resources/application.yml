@@ -45,6 +45,7 @@ video:
   uploadPath: c:\\videoServer\\upload\\
   ffmpegPath:  c:\\ffmpeg\\ffmpeg
   ffprobePath: c:\\ffmpeg\\ffprobe
+  fontPath: c:\\ffmpeg\\BMEuljiro10yearslater.ttf
   
 ---
 spring:
@@ -70,3 +71,4 @@ video:
   uploadPath: /home/users/djna/jar/videoServer/upload/
   ffmpegPath:  /home/users/djna/jar/videoServer/ffmpeg/ffmpeg
   ffprobePath: /home/users/djna/jar/videoServer/ffmpeg/ffprobe
+  fontPath: /home/users/djna/jar/videoServer/ffmpeg/font/BMEuljiro10yearslater.ttf
