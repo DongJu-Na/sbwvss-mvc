@@ -100,13 +100,20 @@ public class ApiController {
                                                         @RequestParam(value = "qrCodeLocation", required = false) String qrCodeLocation,
                                                         @RequestParam(value = "qrcodeBgColor", required = false) String qrcodeBgColor,
                                                         @RequestParam(value = "qrcodeColor", required = false) String qrcodeColor,
-                                                        @RequestParam(value = "bgTransparent", required = false) String bgTransparent
-                                                        // 파라미터가... 추후 Map으로 관리
-                                                        ) throws Exception {
+                                                        @RequestParam(value = "bgTransparent", required = false) String bgTransparent,
+                                                        @RequestParam(value = "fadeEffect1", required = true) String fadeEffect1,
+                                                        @RequestParam(value = "fadeEffect2", required = true) String fadeEffect2,
+                                                        @RequestParam(value = "fadeEffect3", required = true) String fadeEffect3,
+                                                        @RequestParam(value = "textColor1", required = true) String textColor1,
+                                                        @RequestParam(value = "textColor2", required = true) String textColor2,
+                                                        @RequestParam(value = "textColor3", required = true) String textColor3,
+                                                        @RequestParam(value = "pic1Text", required = true) String pic1Text,
+                                                        @RequestParam(value = "pic2Text", required = true) String pic2Text,
+                                                        @RequestParam(value = "pic3Text", required = true) String pic3Text                                                        ) throws Exception {
       String resultFileName = "";
       if (!files.isEmpty()) {
           try {
-              resultFileName = service.save(files, tc, qrcodeUrl, qrCodeLocation ,qrcodeBgColor ,qrcodeColor , bgTransparent);
+              resultFileName = service.save(files, tc, qrcodeUrl, qrCodeLocation ,qrcodeBgColor ,qrcodeColor , bgTransparent , fadeEffect1,fadeEffect2,fadeEffect3,textColor1,textColor2,textColor3,pic1Text,pic2Text,pic3Text);
           } catch (Exception e) {
               e.printStackTrace();
               return ResponseEntity.ok().body(Collections.singletonMap("status", "fail"));
