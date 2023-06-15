@@ -300,7 +300,7 @@ public void videoMinify(String fileName) throws IOException {
 	 
 	 public String save(Map<String, MultipartFile> files , String tc , String qrcodeUrl , String qrCodeLocation
 			 									,String qrcodeBgColor ,String qrcodeColor , String bgTransparent
-			 								 , String fadeEffect1,String fadeEffect2,String fadeEffect3,String textColor1 , String textColor2 , String textColor3 , String pic1Text,String pic2Text,String pic3Text
+			 								 , String fadeEffect1,String fadeEffect2,String textColor1 , String textColor2 , String textColor3 , String pic1Text,String pic2Text,String pic3Text
 			 ) throws Exception {
 		  String resultFileName = "";
 			String filePath = uploadPath;
@@ -474,24 +474,52 @@ public void videoMinify(String fileName) throws IOException {
        executor.createJob(builder).run();
        resultFileName = tempName; 
 		 }else if(tc.equals("3")) {
-			 
+			 /*
 			 FFmpegBuilder builder = new FFmpegBuilder()
-				   .addInput(uploadPath + fileList.get(0).toString())
-				   .addInput(uploadPath + fileList.get(1).toString())
-				   .addInput(uploadPath + fileList.get(2).toString())
-				   .addOutput(uploadPath + tempName)
-				   .addExtraArgs("-loop", "1", "-t", "5")
-				   .addExtraArgs("-filter_complex", 
-				       "[0:v]drawtext=fontfile=" +  fontPath + ":fontcolor=0x" + textColor1 + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text=" + pic1Text + "[txt1];" +
-				       "[1:v]drawtext=fontfile=" +  fontPath + ":fontcolor=0x" + textColor2 + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text=" + pic2Text + "[txt2];" +
-				       "[2:v]drawtext=fontfile=" +  fontPath + ":fontcolor=0x" + textColor3 + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text=" + pic3Text + "[txt3];" +
-				       "[txt1][txt2]xfade=transition="+ fadeEffect1 + ":duration=1:offset=4,split[s0][s1];" +
-				       "[s0]palettegen[p1];[s1][p1]paletteuse[fade1];" +
-				       "[fade1][txt3]xfade=transition=" + fadeEffect2  + ":duration=1:offset=8,format=yuv420p")
-				   .done();
+				    .addInput(uploadPath + fileList.get(0).toString())
+				    .addInput(uploadPath + fileList.get(1).toString())
+				    .addInput(uploadPath + fileList.get(2).toString())
+				    .addOutput(uploadPath + tempName)
+				    .addExtraArgs("-loop", "1", "-t", "5")
+				    .addExtraArgs("-filter_complex",
+				        "[0:v]drawtext=fontfile='" + fontPath + "':fontcolor=0x" + textColor1.replace("#", "") + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text='" + pic1Text + "'[txt1];" +
+				        "[1:v]drawtext=fontfile='" + fontPath + "':fontcolor=0x" + textColor2.replace("#", "") + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text='" + pic2Text + "'[txt2];" +
+				        "[2:v]drawtext=fontfile='" + fontPath + "':fontcolor=0x" + textColor3.replace("#", "") + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text='" + pic3Text + "'[txt3];" +
+				        "[txt1][txt2]xfade=transition=" + fadeEffect1 + ":duration=1:offset=4,split[s0][s1];" +
+				        "[s0]palettegen[p1];[s1][p1]paletteuse[fade1];" +
+				        "[fade1][txt3]xfade=transition=" + fadeEffect2 + ":duration=1:offset=8,format=yuv420p")
+				    .done();
 			 
 			 executor.createJob(builder).run();
-       resultFileName = tempName; 
+			 */
+			 ProcessBuilder processBuilder = new ProcessBuilder(
+				        "c:\\ffmpeg\\ffmpeg",
+				        "-y",
+				        "-v",
+				        "error",
+				        "-loop", "1", "-t", "5",
+				        "-i", uploadPath + fileList.get(0).toString(),
+				        "-loop", "1", "-t", "5",
+				        "-i", uploadPath + fileList.get(1).toString(),
+				        "-loop", "1", "-t", "5",
+				        "-i", uploadPath + fileList.get(2).toString(),
+				        "-filter_complex",
+				        "[0:v]drawtext=fontfile='" + fontPath + "':fontcolor=0x" + textColor1.replace("#", "") + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text='" + pic1Text + "'[txt1];" +
+				        "[1:v]drawtext=fontfile='" + fontPath + "':fontcolor=0x" + textColor2.replace("#", "") + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text='" + pic2Text + "'[txt2];" +
+				        "[2:v]drawtext=fontfile='" + fontPath + "':fontcolor=0x" + textColor3.replace("#", "") + ":fontsize=20:x='w-(w+tw)*mod(t,10)/10':y='h/20':enable='lt(mod(t,180),10)':text='" + pic3Text + "'[txt3];" +
+				        "[txt1][txt2]xfade=transition=" + fadeEffect1 + ":duration=1:offset=4,split[s0][s1];" +
+				        "[s0]palettegen[p1];[s1][p1]paletteuse[fade1];" +
+				        "[fade1][txt3]xfade=transition=" + fadeEffect2 + ":duration=1:offset=8,format=yuv420p",
+				        uploadPath + "h_output.mp4"
+				);
+		
+				Process process = processBuilder.start();
+				int exitCode = process.waitFor();
+				if (exitCode == 0) {
+					resultFileName = tempName;
+				} else {
+					resultFileName = null;
+				}
        
 		 }
 		 
