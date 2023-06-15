@@ -45,7 +45,7 @@ video:
   uploadPath: c:\\videoServer\\upload\\
   ffmpegPath:  c:\\ffmpeg\\ffmpeg
   ffprobePath: c:\\ffmpeg\\ffprobe
-  fontPath: c:\\ffmpeg\\BMEuljiro10yearslater.ttf
+  fontPath: c\:\/ffmpeg\/font\/BMEuljiro10yearslater.ttf
   
 ---
 spring:
