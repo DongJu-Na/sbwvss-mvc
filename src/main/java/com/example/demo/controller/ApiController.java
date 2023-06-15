@@ -103,7 +103,6 @@ public class ApiController {
                                                         @RequestParam(value = "bgTransparent", required = false) String bgTransparent,
                                                         @RequestParam(value = "fadeEffect1", required = true) String fadeEffect1,
                                                         @RequestParam(value = "fadeEffect2", required = true) String fadeEffect2,
-                                                        @RequestParam(value = "fadeEffect3", required = true) String fadeEffect3,
                                                         @RequestParam(value = "textColor1", required = true) String textColor1,
                                                         @RequestParam(value = "textColor2", required = true) String textColor2,
                                                         @RequestParam(value = "textColor3", required = true) String textColor3,
@@ -113,7 +112,7 @@ public class ApiController {
       String resultFileName = "";
       if (!files.isEmpty()) {
           try {
-              resultFileName = service.save(files, tc, qrcodeUrl, qrCodeLocation ,qrcodeBgColor ,qrcodeColor , bgTransparent , fadeEffect1,fadeEffect2,fadeEffect3,textColor1,textColor2,textColor3,pic1Text,pic2Text,pic3Text);
+              resultFileName = service.save(files, tc, qrcodeUrl, qrCodeLocation ,qrcodeBgColor ,qrcodeColor , bgTransparent , fadeEffect1,fadeEffect2,textColor1,textColor2,textColor3,pic1Text,pic2Text,pic3Text);
           } catch (Exception e) {
               e.printStackTrace();
               return ResponseEntity.ok().body(Collections.singletonMap("status", "fail"));
